@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Content Generation Pipeline</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- Header -->
+
+        <header class="header">
+
+            <h1>AI Content Generation Pipeline</h1>
+
+            <p>
+                Generate high-quality content using Prompt Engineering
+            </p>
+
+        </header>
+
+        <!-- Input Card -->
+
+        <section class="card">
+
+            <h2>Create Content</h2>
+
+            <div class="form-group">
+
+                <label for="topic">
+                    Topic
+                </label>
+
+                <textarea
+                    id="topic"
+                    placeholder="Example: Benefits of Artificial Intelligence in Healthcare"></textarea>
+
+            </div>
+
+            <div class="row">
+
+                <div class="form-group">
+
+                    <label for="contentType">
+
+                        Content Type
+
+                    </label>
+
+                    <select id="contentType">
+
+                        <option>Blog</option>
+
+                        <option>LinkedIn Post</option>
+
+                        <option>Email</option>
+
+                        <option>Instagram Caption</option>
+
+                        <option>Product Description</option>
+
+                        <option>YouTube Script</option>
+
+                        <option>Technical Documentation</option>
+
+                        <option>News Article</option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="tone">
+
+                        Tone
+
+                    </label>
+
+                    <select id="tone">
+
+                        <option>Professional</option>
+
+                        <option>Friendly</option>
+
+                        <option>Formal</option>
+
+                        <option>Creative</option>
+
+                        <option>Persuasive</option>
+
+                        <option>Casual</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="wordCount">
+
+                    Word Count
+
+                </label>
+
+                <input
+                    type="number"
+                    id="wordCount"
+                    value="800"
+                    min="100"
+                    max="3000">
+
+            </div>
+
+            <button id="generateBtn">
+
+                Generate Content
+
+            </button>
+
+        </section>
+
+        <!-- Pipeline -->
+
+        <section class="card">
+
+            <h2>Pipeline Progress</h2>
+
+            <div class="pipeline">
+
+                <div class="step" id="step1">
+                    Research
+                </div>
+
+                <div class="step" id="step2">
+                    Outline
+                </div>
+
+                <div class="step" id="step3">
+                    Writing
+                </div>
+
+                <div class="step" id="step4">
+                    Refinement
+                </div>
+
+                <div class="step" id="step5">
+                    SEO
+                </div>
+
+                <div class="step" id="step6">
+                    Evaluation
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Output -->
+
+        <section class="card">
+
+            <div class="card-header">
+
+                <h2>
+
+                    Generated Content
+
+                </h2>
+
+                <div>
+
+                    <button id="copyBtn">
+
+                        Copy
+
+                    </button>
+
+                    <button id="downloadBtn">
+
+                        Download
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <textarea
+                id="contentOutput"
+                readonly></textarea>
+
+        </section>
+
+        <!-- SEO -->
+
+        <section class="card">
+
+            <h2>
+
+                SEO Details
+
+            </h2>
+
+            <textarea
+                id="seoOutput"
+                readonly></textarea>
+
+        </section>
+
+        <!-- Statistics -->
+
+        <section class="card">
+
+            <h2>
+
+                Content Statistics
+
+            </h2>
+
+            <div class="stats">
+
+                <div class="stat-box">
+
+                    <h3 id="words">
+
+                        0
+
+                    </h3>
+
+                    <p>Words</p>
+
+                </div>
+
+                <div class="stat-box">
+
+                    <h3 id="reading">
+
+                        0
+
+                    </h3>
+
+                    <p>Reading Time</p>
+
+                </div>
+
+                <div class="stat-box">
+
+                    <h3 id="paragraphs">
+
+                        0
+
+                    </h3>
+
+                    <p>Paragraphs</p>
+
+                </div>
+
+                <div class="stat-box">
+
+                    <h3 id="sentences">
+
+                        0
+
+                    </h3>
+
+                    <p>Sentences</p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Evaluation -->
+
+        <section class="card">
+
+            <h2>
+
+                AI Evaluation
+
+            </h2>
+
+            <div class="evaluation">
+
+                <div class="score-box">
+
+                    <h3 id="grammarScore">0</h3>
+
+                    <p>Grammar</p>
+
+                </div>
+
+                <div class="score-box">
+
+                    <h3 id="readabilityScore">0</h3>
+
+                    <p>Readability</p>
+
+                </div>
+
+                <div class="score-box">
+
+                    <h3 id="seoScore">0</h3>
+
+                    <p>SEO</p>
+
+                </div>
+
+                <div class="score-box overall">
+
+                    <h3 id="overallScore">0</h3>
+
+                    <p>Overall</p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
