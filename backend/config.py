@@ -1,28 +1,18 @@
 import os
-
 from dotenv import load_dotenv
-from google import genai
+from groq import Groq
 
-# Load environment variables
 load_dotenv()
 
-# Read API Key
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
-if not GEMINI_API_KEY:
-    raise ValueError(
-        "GEMINI_API_KEY not found. Please create a .env file."
-    )
+client = Groq(
+    api_key=GROQ_API_KEY
+)
 
-# Create Gemini client
-client = genai.Client(api_key=GEMINI_API_KEY)
+MODEL_NAME = "llama-3.3-70b-versatile"
 
-# Model Configuration
-MODEL_NAME = "gemini-2.0-flash-lite"
-
-# Generation Configuration
 GENERATION_CONFIG = {
     "temperature": 0.7,
-    "top_p": 0.9,
-    "max_output_tokens": 2048,
+    "max_tokens": 2048
 }

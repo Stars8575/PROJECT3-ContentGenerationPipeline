@@ -1,7 +1,5 @@
 import json
 
-from google.genai import types
-
 from config import (
     client,
     MODEL_NAME,
@@ -20,28 +18,29 @@ from prompts import (
 from templates import get_template
 
 
-def generate_response(prompt: str) -> str:
+def generate_response(prompt: str):
     """
-    Sends a prompt to Gemini and returns the response text.
+    Sends prompt to Groq and returns the generated response.
     """
 
-    response = client.models.generate_content(
+    response = client.chat.completions.create(
         model=MODEL_NAME,
-        contents=prompt,
-        config=types.GenerateContentConfig(
-            temperature=GENERATION_CONFIG["temperature"],
-            top_p=GENERATION_CONFIG["top_p"],
-            max_output_tokens=GENERATION_CONFIG["max_output_tokens"],
-        ),
+        messages=[
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        temperature=GENERATION_CONFIG["temperature"],
+        max_tokens=GENERATION_CONFIG["max_tokens"]
     )
 
-    return response.text.strip()
+    return response.choices[0].message.content.strip()
 
 
 def safe_json(text: str):
     """
-    Converts Gemini JSON response into a Python dictionary.
-    Falls back gracefully if parsing fails.
+    Converts model JSON response into a Python dictionary.
     """
 
     try:
@@ -59,7 +58,9 @@ def safe_json(text: str):
             "overall": 0,
             "strengths": [],
             "weaknesses": [],
-            "suggestions": ["Unable to evaluate content."]
+            "suggestions": [
+                "Unable to evaluate content."
+            ]
         }
 
 
@@ -70,25 +71,17 @@ def generate_content_pipeline(
     word_count: int
 ):
     """
-    Complete prompt engineering pipeline.
+    Complete AI content generation pipeline.
     """
 
     template = get_template(content_type)
 
-    # -------------------------------------------------
-    # STEP 1
-    # Research
-    # -------------------------------------------------
-
+    # Step 1: Research
     research = generate_response(
         research_prompt(topic)
     )
 
-    # -------------------------------------------------
-    # STEP 2
-    # Outline
-    # -------------------------------------------------
-
+    # Step 2: Outline
     outline = generate_response(
         outline_prompt(
             topic,
@@ -96,11 +89,7 @@ def generate_content_pipeline(
         )
     )
 
-    # -------------------------------------------------
-    # STEP 3
-    # Generate Content
-    # -------------------------------------------------
-
+    # Step 3: Generate Content
     writer_prompt = content_prompt(
         topic=topic,
         outline=outline + "\n\n" + template["instructions"],
@@ -111,29 +100,17 @@ def generate_content_pipeline(
 
     content = generate_response(writer_prompt)
 
-    # -------------------------------------------------
-    # STEP 4
-    # Refine
-    # -------------------------------------------------
-
+    # Step 4: Refine
     refined_content = generate_response(
         refine_prompt(content)
     )
 
-    # -------------------------------------------------
-    # STEP 5
-    # SEO
-    # -------------------------------------------------
-
+    # Step 5: SEO Suggestions
     seo = generate_response(
         seo_prompt(refined_content)
     )
 
-    # -------------------------------------------------
-    # STEP 6
-    # Evaluation
-    # -------------------------------------------------
-
+    # Step 6: Evaluation
     evaluation_text = generate_response(
         evaluation_prompt(refined_content)
     )
@@ -142,27 +119,14 @@ def generate_content_pipeline(
         evaluation_text
     )
 
-    # -------------------------------------------------
-    # Return Everything
-    # -------------------------------------------------
-
     return {
-
         "topic": topic,
-
         "content_type": content_type,
-
         "tone": tone,
-
         "word_count": word_count,
-
         "research": research,
-
         "outline": outline,
-
         "content": refined_content,
-
         "seo": seo,
-
         "evaluation": evaluation
     }
