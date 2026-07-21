@@ -154,32 +154,28 @@ or run it using Live Server in VS Code.
 
 ## 📷 Application Workflow
 
-```
-User Input
-      │
-      ▼
-FastAPI Backend
-      │
-      ▼
-Research Stage
-      │
-      ▼
-Outline Generation
-      │
-      ▼
-Content Generation
-      │
-      ▼
-Content Refinement
-      │
-      ▼
-SEO Optimization
-      │
-      ▼
-Content Evaluation
-      │
-      ▼
-Final Output
+```mermaid
+flowchart TD
+    A[User Input] --> B[FastAPI Backend]
+    B --> C[Research]
+    C --> D[Outline]
+    D --> E[Content Generation]
+    E --> F[Refinement]
+    F --> G[SEO]
+    G --> H[Evaluation]
+    H --> I[Final Output]
+
+    style A fill:#FFB6C1,stroke:#FF69B4,stroke-width:3px,color:#000
+    style B fill:#BDE0FE,stroke:#5390D9,stroke-width:3px,color:#000
+    style C fill:#D8B4FE,stroke:#9333EA,stroke-width:3px,color:#000
+    style D fill:#FBCFE8,stroke:#EC4899,stroke-width:3px,color:#000
+    style E fill:#C4B5FD,stroke:#7C3AED,stroke-width:3px,color:#000
+    style F fill:#A7F3D0,stroke:#10B981,stroke-width:3px,color:#000
+    style G fill:#FDE68A,stroke:#F59E0B,stroke-width:3px,color:#000
+    style H fill:#BFDBFE,stroke:#3B82F6,stroke-width:3px,color:#000
+    style I fill:#F9A8D4,stroke:#DB2777,stroke-width:3px,color:#000
+
+    linkStyle default stroke:#7C3AED,stroke-width:2px
 ```
 
 ---
